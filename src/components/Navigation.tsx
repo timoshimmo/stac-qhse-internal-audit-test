@@ -6,7 +6,7 @@ import { auth } from '../lib/firebase';
 interface NavigationProps {
   profile: UserProfile | null;
   currentPage: string;
-  setCurrentPage: (page: 'quiz' | 'registration' | 'result' | 'progress' | 'instructions' | 'comments' | 'admin-dashboard') => void;
+  setCurrentPage: (page: 'quiz' | 'registration' | 'result' | 'progress' | 'instructions' | 'comments' | 'admin-dashboard' | 'feedback') => void;
 }
 
 const Navigation: React.FC<NavigationProps> = ({ profile, currentPage, setCurrentPage }) => {

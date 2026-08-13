@@ -58,6 +58,23 @@ const reviewSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now }
 });
 
+const feedbackSchema = new mongoose.Schema({
+  userId: { type: String, required: true },
+  userName: String,
+  userEmail: String,
+  courseName: String,
+  trainingDate: String,
+  attemptId: String,
+  ratings: Object,
+  mostUseful: String,
+  improvements: String,
+  depthTopics: String,
+  signature: String,
+  createdAt: { type: Date, default: Date.now }
+}, { strict: false });
+
+const Feedback = mongoose.model('Feedback', feedbackSchema);
+
 const Review = mongoose.model('Review', reviewSchema);
 
 // Email Configuration
@@ -566,6 +583,39 @@ app.post('/api/reviews', async (req, res) => {
     res.status(500).json({ error: 'Database error' });
   }
 });
+
+// Feedback API
+app.post('/api/feedback', async (req, res) => {
+  try {
+    const feedbackData = req.body;
+    console.log(`[Feedback] Saving feedback for userId: ${feedbackData.userId}`);
+    const feedback = new Feedback(feedbackData);
+    await feedback.save();
+    res.json({ success: true, id: feedback._id });
+  } catch (error) {
+    console.error('[Feedback] Error saving feedback:', error);
+    res.status(500).json({ error: 'Database error' });
+  }
+});
+
+app.get('/api/feedback/:userId', async (req, res) => {
+  try {
+    const feedbacks = await Feedback.find({ userId: req.params.userId }).sort({ createdAt: -1 });
+    res.json(feedbacks);
+  } catch (error) {
+    res.status(500).json({ error: 'Database error' });
+  }
+});
+
+app.get('/api/admin/feedbacks', async (req, res) => {
+  try {
+    const feedbacks = await Feedback.find().sort({ createdAt: -1 });
+    res.json(feedbacks);
+  } catch (error) {
+    res.status(500).json({ error: 'Database error' });
+  }
+});
+
 
 // Admin API: Fetch all users
 app.get('/api/admin/users', async (req, res) => {

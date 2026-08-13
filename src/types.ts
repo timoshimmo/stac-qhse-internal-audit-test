@@ -24,3 +24,19 @@ export interface ScoreAttempt {
   responses: Record<string, number>;
   timestamp: Date;
 }
+
+export interface FeedbackData {
+  id?: string;
+  userId: string;
+  userName: string;
+  userEmail?: string;
+  courseName: string;
+  trainingDate: string;
+  attemptId?: string;
+  ratings: Record<string, number>;
+  mostUseful?: string;
+  improvements?: string;
+  depthTopics?: string;
+  signature?: string;
+  createdAt?: Date | string;
+}

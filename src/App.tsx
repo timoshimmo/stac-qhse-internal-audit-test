@@ -22,10 +22,12 @@ import LoginPage from './components/LoginPage';
 import InstructionsPage from './components/InstructionsPage';
 import CommentsPage from './components/CommentsPage';
 import AdminDashboard from './components/AdminDashboard';
+import FeedbackPage from './components/FeedbackPage';
+import { PASSING_GRADE } from './constants';
 import { LogIn, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
-type Page = 'quiz' | 'registration' | 'result' | 'progress' | 'login' | 'instructions' | 'comments' | 'admin-dashboard';
+type Page = 'quiz' | 'registration' | 'result' | 'progress' | 'login' | 'instructions' | 'comments' | 'admin-dashboard' | 'feedback';
 
 export default function App() {
   const [user, setUser] = useState<{ uid: string; email: string | null; displayName: string | null } | null>(null);
@@ -97,9 +99,20 @@ export default function App() {
     setCurrentPage('instructions');
   };
 
+  /*
   const handleQuizComplete = (attempt: ScoreAttempt) => {
     setLastAttempt(attempt);
     setCurrentPage('result');
+  };
+*/
+
+  const handleQuizComplete = (attempt: ScoreAttempt) => {
+    setLastAttempt(attempt);
+    if (attempt.percentage >= PASSING_GRADE) {
+      setCurrentPage('feedback');
+    } else {
+      setCurrentPage('result');
+    }
   };
 
   const handleTryAgain = () => {
@@ -229,6 +242,22 @@ export default function App() {
               exit={{ opacity: 0, x: -20 }}
             >
               <Quiz user={user} onComplete={handleQuizComplete} />
+            </motion.div>
+          )}
+
+          {currentPage === 'feedback' && profile && user && (
+            <motion.div
+              key="feedback"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+            >
+              <FeedbackPage 
+                user={user}
+                profile={profile}
+                attempt={lastAttempt}
+                onComplete={() => setCurrentPage('result')}
+              />
             </motion.div>
           )}
 

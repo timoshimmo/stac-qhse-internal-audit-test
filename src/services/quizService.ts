@@ -178,3 +178,44 @@ export const updateUserRole = async (uid: string, role: 'USER' | 'ADMIN') => {
     return false;
   }
 };
+
+export const saveFeedback = async (feedback: FeedbackData) => {
+  try {
+    const res = await fetch(`${API_BASE}/feedback`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(feedback)
+    });
+    if (!res.ok) throw new Error('Failed to save feedback');
+    return await res.json();
+  } catch (error) {
+    console.error('Error saving feedback:', error);
+    throw error;
+  }
+};
+
+export const getUserFeedbacks = async (userId: string): Promise<FeedbackData[]> => {
+  try {
+    const res = await fetch(`${API_BASE}/feedback/${userId}`);
+    if (res.ok) {
+      return await res.json();
+    }
+    return [];
+  } catch (error) {
+    console.error('Error getting user feedbacks:', error);
+    return [];
+  }
+};
+
+export const getAllFeedbacks = async (): Promise<FeedbackData[]> => {
+  try {
+    const res = await fetch(`${API_BASE}/admin/feedbacks`);
+    if (res.ok) {
+      return await res.json();
+    }
+    return [];
+  } catch (error) {
+    console.error('Error getting all feedbacks:', error);
+    return [];
+  }
+};

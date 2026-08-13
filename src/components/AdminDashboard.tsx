@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { getAllAttempts, getAllUsers, updateUserRole } from '../services/quizService';
+import { getAllAttempts, getAllUsers, updateUserRole, getAllFeedbacks } from '../services/quizService';
 import { PASSING_GRADE } from '../constants';
 import { Users, FileText, Download, CheckCircle, XCircle, Search, Calendar, User, Shield, ShieldCheck, Mail, Phone, Eye, X, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { UserProfile } from '../types';
+import { UserProfile, FeedbackData } from '../types';
 import Certificate from './Certificate';
 
 interface EnrichedAttempt {
@@ -18,12 +18,13 @@ interface EnrichedAttempt {
   certNo?: string;
 }
 
-type Tab = 'attempts' | 'users';
+type Tab = 'attempts' | 'users' | 'feedbacks';
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState<Tab>('attempts');
   const [attempts, setAttempts] = useState<EnrichedAttempt[]>([]);
   const [users, setUsers] = useState<UserProfile[]>([]);
+  const [feedbacks, setFeedbacks] = useState<FeedbackData[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'all' | 'passed' | 'failed'>('all');
   const [search, setSearch] = useState('');
@@ -31,6 +32,7 @@ export default function AdminDashboard() {
   
   // Preview State
   const [previewAttempt, setPreviewAttempt] = useState<EnrichedAttempt | null>(null);
+  const [previewFeedback, setPreviewFeedback] = useState<FeedbackData | null>(null);
 
   useEffect(() => {
     fetchData();
@@ -42,9 +44,12 @@ export default function AdminDashboard() {
       if (activeTab === 'attempts') {
         const data = await getAllAttempts();
         setAttempts(data);
-      } else {
+      }  else if (activeTab === 'users') {
         const data = await getAllUsers();
         setUsers(data);
+      } else if (activeTab === 'feedbacks') {
+        const data = await getAllFeedbacks();
+        setFeedbacks(data);
       }
     } catch (err) {
       console.error('Failed to fetch data:', err);
@@ -85,6 +90,14 @@ export default function AdminDashboard() {
     (u.name || '').toLowerCase().includes(search.toLowerCase()) || 
     (u.email || '').toLowerCase().includes(search.toLowerCase())
   );
+
+   const filteredFeedbacks = feedbacks.filter(f => 
+    (f.userName || '').toLowerCase().includes(search.toLowerCase()) ||
+    (f.userEmail || '').toLowerCase().includes(search.toLowerCase()) ||
+    (f.courseName || '').toLowerCase().includes(search.toLowerCase())
+  );
+
+  /*
 
   const handleExportCSV = () => {
     const isAttempts = activeTab === 'attempts';
@@ -128,8 +141,67 @@ export default function AdminDashboard() {
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
   };
+*/
 
+ const handleExportCSV = () => {
+    let headers: string[] = [];
+    let rows: (string | number)[][] = [];
 
+    if (activeTab === 'attempts') {
+      headers = ['Candidate Name', 'Email Address', 'Score (%)', 'Status', 'Completed Date', 'Certificate Number'];
+      rows = filteredAttempts.map(a => [
+        a.userName || '',
+        a.userEmail || '',
+        `${Math.round(a.percentage)}%`,
+        a.percentage >= PASSING_GRADE ? 'QUALIFIED' : 'RETAKE REQUIRED',
+        a.timestamp ? new Date(a.timestamp).toLocaleDateString('en-GB') : 'N/A',
+        a.certNo || 'N/A'
+      ]);
+    } else if (activeTab === 'users') {
+      headers = ['Staff Name', 'Email', 'Role'];
+      rows = filteredUsers.map(u => [
+        u.name || '',
+        u.email || '',
+        u.role || 'USER'
+      ]);
+    } else if (activeTab === 'feedbacks') {
+      headers = ['Candidate Name', 'Email', 'Course Name', 'Training Date', 'Avg Rating (/10)', 'Most Useful', 'Improvements', 'Depth Topics', 'Signature', 'Submitted Date'];
+      rows = filteredFeedbacks.map(f => {
+        const ratingVals = Object.values(f.ratings || {}).map(v => Number(v) || 0);
+        const avgRating = ratingVals.length ? (ratingVals.reduce((a, b) => a + b, 0) / ratingVals.length).toFixed(1) : 'N/A';
+        return [
+          f.userName || '',
+          f.userEmail || '',
+          f.courseName || '',
+          f.trainingDate || '',
+          avgRating,
+          f.mostUseful || '',
+          f.improvements || '',
+          f.depthTopics || '',
+          f.signature || '',
+          f.createdAt ? new Date(f.createdAt).toLocaleDateString('en-GB') : 'N/A'
+        ];
+      });
+    }
+
+    // Convert array to CSV string
+    const csvString = [
+      headers.join(','),
+      ...rows.map(row => row.map(val => `"${String(val).replace(/"/g, '""')}"`).join(','))
+    ].join('\n');
+
+    // Create a Blob and download it
+    const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', `${activeTab.toUpperCase()}_Export_${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
 
   if (loading && attempts.length === 0 && users.length === 0) {
     return (
@@ -157,6 +229,12 @@ export default function AdminDashboard() {
                   className={`text-sm font-bold transition-all px-3 py-1 rounded-lg cursor-pointer ${activeTab === 'attempts' ? 'bg-brand-blue text-white shadow-lg shadow-blue-100' : 'text-slate-400 hover:text-slate-600'}`}
                 >
                   Assessments
+                </button>
+                <button 
+                  onClick={() => setActiveTab('feedbacks')}
+                  className={`text-sm font-bold transition-all px-3 py-1 rounded-lg cursor-pointer ${activeTab === 'feedbacks' ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-100' : 'text-slate-400 hover:text-slate-600'}`}
+                >
+                  Training Feedback
                 </button>
                 <button 
                   onClick={() => setActiveTab('users')}
@@ -206,9 +284,9 @@ export default function AdminDashboard() {
         <div className="p-4 bg-slate-50 border-b border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center gap-3 flex-1">
             <Search className="w-4 h-4 text-slate-400" />
-            <input 
+           <input 
               type="text"
-              placeholder={activeTab === 'attempts' ? "Search candidates..." : "Search staff members..."}
+              placeholder={activeTab === 'attempts' ? "Search candidates..." : activeTab === 'feedbacks' ? "Search feedback submissions..." : "Search staff members..."}
               className="bg-transparent border-none outline-none text-sm font-semibold text-slate-700 w-full"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -216,10 +294,10 @@ export default function AdminDashboard() {
             {loading && <div className="w-4 h-4 border-2 border-brand-blue border-t-transparent rounded-full animate-spin"></div>}
           </div>
           
-          <button
+         <button
             onClick={handleExportCSV}
             className="flex items-center justify-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs uppercase tracking-widest rounded-xl shadow-lg shadow-emerald-100/50 hover:shadow-emerald-200/50 transition-all cursor-pointer whitespace-nowrap shrink-0"
-            title={activeTab === 'attempts' ? "Export Candidate Information as CSV" : "Export Staff List as CSV"}
+            title={activeTab === 'attempts' ? "Export Candidate Information as CSV" : activeTab === 'feedbacks' ? "Export Feedbacks as CSV" : "Export Staff List as CSV"}
           >
             <Download className="w-4 h-4" />
             Export CSV
@@ -302,6 +380,56 @@ export default function AdminDashboard() {
                 ))}
               </tbody>
             </table>
+          ) : activeTab === 'feedbacks' ? (
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-slate-50 border-b border-slate-100">
+                  <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Candidate</th>
+                  <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Training Date</th>
+                  <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">Avg Rating</th>
+                  <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right">Action</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {filteredFeedbacks.map((fb, idx) => {
+                  const ratingVals = Object.values(fb.ratings || {}).map(v => Number(v) || 0);
+                  const avgRating = ratingVals.length ? (ratingVals.reduce((a, b) => a + b, 0) / ratingVals.length).toFixed(1) : 'N/A';
+                  return (
+                    <tr key={fb.id || idx} className="hover:bg-slate-50/50 transition-colors">
+                      <td className="px-6 py-4">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+                            <MessageSquare className="w-4 h-4" />
+                          </div>
+                          <div>
+                            <div className="text-sm font-black text-slate-800 uppercase">{fb.userName}</div>
+                            <div className="text-[10px] font-bold text-slate-400">{fb.userEmail}</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="text-xs font-bold text-slate-600">{fb.trainingDate}</div>
+                      </td>
+                      <td className="px-6 py-4 text-center">
+                        <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-black bg-amber-50 text-amber-600 border border-amber-200">
+                          <Star className="w-3.5 h-3.5 fill-current" />
+                          {avgRating} / 10
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 text-right">
+                        <button
+                          onClick={() => setPreviewFeedback(fb)}
+                          className="px-3 py-1.5 bg-slate-100 hover:bg-brand-blue hover:text-white text-slate-700 font-bold text-xs rounded-xl transition-all cursor-pointer inline-flex items-center gap-1.5"
+                        >
+                          <Eye className="w-3.5 h-3.5" />
+                          View Form
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
           ) : (
             <table className="w-full text-left border-collapse">
               <thead>
@@ -350,7 +478,7 @@ export default function AdminDashboard() {
           )}
         </div>
         
-        {(filteredAttempts.length === 0 && filteredUsers.length === 0) && (
+        {(filteredAttempts.length === 0 && filteredUsers.length === 0 && filteredFeedbacks.length === 0) && (
           <div className="p-16 text-center">
             <p className="text-slate-400 font-black text-xs uppercase tracking-widest mb-2">No Records Found</p>
             <p className="text-slate-300 font-bold text-sm">Adjust your search parameters and try again.</p>
@@ -404,6 +532,98 @@ export default function AdminDashboard() {
                   certNo={previewAttempt.certNo}
                   variant="full"
                 />
+              </div>
+            </motion.div>
+          </div>
+        )}
+
+        {/* Feedback Details Modal */}
+        {previewFeedback && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setPreviewFeedback(null)}
+              className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm shadow-2xl"
+            />
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="relative bg-white rounded-3xl shadow-2xl w-full max-w-3xl overflow-hidden flex flex-col max-h-[90vh]"
+            >
+              <div className="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50 shrink-0">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-emerald-100 rounded-xl text-emerald-700">
+                    <MessageSquare className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="font-sans font-black text-slate-800">Post-Training Feedback Form</h3>
+                    <p className="text-[10px] font-sans font-black text-slate-400 uppercase tracking-widest">{previewFeedback.userName} • {previewFeedback.trainingDate}</p>
+                  </div>
+                </div>
+                <button 
+                  onClick={() => setPreviewFeedback(null)}
+                  className="p-2 hover:bg-slate-200 rounded-full transition-colors cursor-pointer"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              <div className="p-6 md:p-8 overflow-y-auto space-y-6 text-sm">
+                <div className="grid grid-cols-2 gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                  <div>
+                    <span className="text-[10px] font-black uppercase text-slate-400 block">Candidate</span>
+                    <span className="font-bold text-slate-800">{previewFeedback.userName}</span>
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-black uppercase text-slate-400 block">Email</span>
+                    <span className="font-bold text-slate-800">{previewFeedback.userEmail}</span>
+                  </div>
+                  <div className="col-span-2">
+                    <span className="text-[10px] font-black uppercase text-slate-400 block">Course Name</span>
+                    <span className="font-bold text-slate-800">{previewFeedback.courseName}</span>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-black text-slate-800 mb-3 border-b border-slate-100 pb-2">Statement Ratings (1 to 10 Scale)</h4>
+                  <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                    {Object.entries(previewFeedback.ratings || {}).map(([key, val]) => (
+                      <div key={key} className="bg-slate-50 border border-slate-200 p-3 rounded-xl text-center">
+                        <span className="text-[10px] font-black uppercase text-slate-400 block">{key.toUpperCase()}</span>
+                        <span className="text-lg font-black text-brand-blue">{val} / 10</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <h4 className="font-black text-slate-800 border-b border-slate-100 pb-2">Open Comments</h4>
+                  
+                  <div className="bg-slate-50 border border-slate-200 p-4 rounded-xl">
+                    <span className="text-xs font-bold text-slate-500 block mb-1">Most Useful Part:</span>
+                    <p className="font-medium text-slate-800 whitespace-pre-wrap">{previewFeedback.mostUseful || 'N/A'}</p>
+                  </div>
+
+                  <div className="bg-slate-50 border border-slate-200 p-4 rounded-xl">
+                    <span className="text-xs font-bold text-slate-500 block mb-1">Improvements for Future Sessions:</span>
+                    <p className="font-medium text-slate-800 whitespace-pre-wrap">{previewFeedback.improvements || 'N/A'}</p>
+                  </div>
+
+                  <div className="bg-slate-50 border border-slate-200 p-4 rounded-xl">
+                    <span className="text-xs font-bold text-slate-500 block mb-1">Topics for More Depth:</span>
+                    <p className="font-medium text-slate-800 whitespace-pre-wrap">{previewFeedback.depthTopics || 'N/A'}</p>
+                  </div>
+
+                  {previewFeedback.signature && (
+                    <div className="bg-slate-50 border border-slate-200 p-4 rounded-xl flex items-center justify-between">
+                      <span className="text-xs font-bold text-slate-500">Signature:</span>
+                      <span className="font-serif italic font-bold text-slate-800 text-base">{previewFeedback.signature}</span>
+                    </div>
+                  )}
+                </div>
               </div>
             </motion.div>
           </div>
