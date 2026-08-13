@@ -10,7 +10,7 @@ dotenv.config();
 
 const app = express();
 const PORT = 3000;
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://tokmangwang_db_user:1c48u5qIbHkaE86P@ac-dfn8rn9-shard-00-00.18owzmo.mongodb.net:27017,ac-dfn8rn9-shard-00-01.18owzmo.mongodb.net:27017,ac-dfn8rn9-shard-00-02.18owzmo.mongodb.net:27017/?ssl=true&replicaSet=atlas-se2r7n-shard-0&authSource=admin&appName=Cluster0";
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb+srv://tokmangwang_db_user:1c48u5qIbHkaE86P@cluster0.18owzmo.mongodb.net/?appName=Cluster0";
 
 app.use(cors());
 app.use(express.json());
