@@ -64,7 +64,7 @@ const InstructionsPage: React.FC<InstructionsPageProps> = ({ onStart }) => {
               onClick={onStart}
               className="w-full bg-brand-blue hover:bg-blue-700 text-white font-black py-5 rounded-2xl transition-all active:scale-[0.98] shadow-lg shadow-blue-500/20 flex items-center justify-center group cursor-pointer"
             >
-              START QUIZ
+              START TEST
               <Zap size={20} className="ml-2 group-hover:scale-125 transition-transform" fill="currentColor" />
             </button>
             <p className="text-center text-slate-400 text-xs font-bold mt-4 uppercase tracking-widest">
