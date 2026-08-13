@@ -18,7 +18,7 @@ const Navigation: React.FC<NavigationProps> = ({ profile, currentPage, setCurren
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         </div>
-        <span className="text-xl font-black tracking-tight text-slate-800 uppercase">Cybersecurity Quiz</span>
+        <span className="text-xl font-black tracking-tight text-slate-800 uppercase">Internal Audit Test</span>
       </div>
       
       <div className="flex items-center gap-6">
