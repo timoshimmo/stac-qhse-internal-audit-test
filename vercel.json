@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "https://stac-cybersecurity-quiz-backend.vercel.app/api/$1" }
+  ]
+}
