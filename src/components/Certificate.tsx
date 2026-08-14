@@ -288,8 +288,8 @@ export function getCleanCertificateHTML(props: {
 const Certificate: React.FC<CertificateProps> = ({ 
   participantName, 
   date = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }), 
-  courseName = "5 Interview Questions Gen AI Can’t Answer",
-  publisher = "MIT Sloan Management Review",
+  courseName = "QHSE Internal Auditor-Test",
+  publisher = "FORESHIP by RINA",
   certNo: propCertNo,
   variant = 'full',
 }) => {
