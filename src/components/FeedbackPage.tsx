@@ -318,7 +318,7 @@ const FeedbackPage: React.FC<FeedbackPageProps> = ({ user, profile, attempt, onC
               </>
             ) : (
               <>
-                Submit & View Results
+                Submit
                 <Send className="w-4 h-4" />
               </>
             )}
