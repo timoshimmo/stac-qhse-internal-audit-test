@@ -43,7 +43,7 @@ const Certificate: React.FC<CertificateProps> = ({
     }
   };
 
-  const certificateImage = "https://res.cloudinary.com/stacconnect/image/upload/v1777541729/certificate_new__2_ohxlvn.png";
+  const certificateImage = "https://ohpkfpvyiz0fif6h.public.blob.vercel-storage.com/cybersecurity";
 
   return (
     <div className={variant === 'full' ? "flex flex-col items-center" : "inline-block"}>

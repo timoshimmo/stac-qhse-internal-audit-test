@@ -10,7 +10,7 @@ dotenv.config();
 
 const app = express();
 const PORT = 3000;
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb+srv://tokmangwang_db_user:1c48u5qIbHkaE86P@cluster0.18owzmo.mongodb.net/?appName=Cluster0";
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb+srv://helpstacconnect_db_user:TVS0hb66PtxWn5pU@stacmarine.u3qbxiu.mongodb.net/auditor?appName=stacmarine";
 
 app.use(cors());
 app.use(express.json());
