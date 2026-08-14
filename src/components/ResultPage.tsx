@@ -84,6 +84,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ attempt, participantName, onTry
             </div>
             <Certificate 
               participantName={participantName} 
+              certNo={attempt.certNo}
               date={new Date().toLocaleDateString('en-GB', { 
                 day: '2-digit', 
                 month: 'long', 
