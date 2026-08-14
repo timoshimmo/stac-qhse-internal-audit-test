@@ -83,95 +83,95 @@ export function getCleanCertificateHTML(props: {
       ${CORNER_BR}
 
       <!-- Main Body -->
-      <div style="padding: 26px 60px 80px; position: relative; z-index: 5; text-align: center;">
+      <div style="padding: 28px 60px 0; position: relative; z-index: 5; text-align: center;">
         
         <!-- Logo -->
-        <div style="text-align: center; margin-bottom: 4px; margin-top: -6px;">
+        <div style="text-align: center; margin-bottom: 6px; margin-top: -4px;">
           <img 
             src="${STAC_LOGO_URL}" 
             alt="STAC Logo" 
             crossorigin="anonymous"
-            style="height: 62px; width: auto; max-width: 220px; object-fit: contain; display: inline-block;" 
+            style="height: 64px; width: auto; max-width: 240px; object-fit: contain; display: inline-block;" 
           />
         </div>
 
         <!-- Academy Name -->
         <div style="
           text-align: center;
-          letter-spacing: 0.35em;
-          font-size: 14px;
+          letter-spacing: 0.38em;
+          font-size: 15px;
           font-family: Arial, sans-serif;
           font-weight: 700;
           color: #2d6a4f;
           text-transform: uppercase;
-          margin: 4px 0 10px 0;
+          margin: 4px 0 12px 0;
         ">
           S T A C &nbsp; M A R I N E
         </div>
 
         <!-- Divider with dot -->
-        <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin: 0 auto 10px; width: 65%;">
-          <div style="flex: 1; height: 1px; background: #1e3a5f;"></div>
-          <div style="width: 6px; height: 6px; background: #1e3a5f; border-radius: 50%;"></div>
-          <div style="flex: 1; height: 1px; background: #1e3a5f;"></div>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin: 0 auto 14px; width: 68%;">
+          <div style="flex: 1; height: 1.5px; background: #1e3a5f;"></div>
+          <div style="width: 7px; height: 7px; background: #1e3a5f; border-radius: 50%;"></div>
+          <div style="flex: 1; height: 1.5px; background: #1e3a5f;"></div>
         </div>
 
         <!-- Title & Subtitle -->
-        <div style="font-size: 34px; font-weight: 400; color: #0f172a; margin: 0 0 3px; font-family: Georgia, serif;">
+        <div style="font-size: 36px; font-weight: 400; color: #0f172a; margin: 0 0 5px; font-family: Georgia, serif;">
           Certificate of Completion
         </div>
-        <div style="font-size: 14px; color: #64748b; font-style: italic; margin-bottom: 6px; font-family: Georgia, serif;">
+        <div style="font-size: 15px; color: #64748b; font-style: italic; margin-bottom: 10px; font-family: Georgia, serif;">
           This is to certify that
         </div>
 
         <!-- Name -->
-        <div style="font-size: 42px; font-weight: bold; color: #0f172a; font-family: Georgia, serif; margin: 0 0 4px; line-height: 1.1;">
+        <div style="font-size: 46px; font-weight: bold; color: #0f172a; font-family: Georgia, serif; margin: 0 0 5px; line-height: 1.1;">
           ${props.participantName}
         </div>
-        <div style="width: 55%; margin: 0 auto 8px; height: 2px; background: linear-gradient(90deg, transparent, #2d6a4f, transparent);"></div>
+        <div style="width: 58%; margin: 0 auto 12px; height: 2px; background: linear-gradient(90deg, transparent, #2d6a4f, transparent);"></div>
 
         <!-- Completion text -->
-        <div style="font-size: 14px; color: #374151; margin-bottom: 4px; font-style: italic; font-family: Georgia, serif;">
+        <div style="font-size: 15px; color: #374151; margin-bottom: 8px; font-style: italic; font-family: Georgia, serif;">
           has successfully completed the course
         </div>
 
         <!-- Course name & Publisher -->
-        <div style="font-size: 21px; font-weight: bold; color: #0f172a; margin: 0 0 3px; font-family: Georgia, serif;">
+        <div style="font-size: 23px; font-weight: bold; color: #0f172a; margin: 0 0 4px; font-family: Georgia, serif;">
           ${props.courseName}
         </div>
-        <div style="font-size: 13px; font-weight: bold; color: #475569; font-family: Arial, sans-serif;">
+        <div style="font-size: 13.5px; font-weight: bold; color: #475569; font-family: Arial, sans-serif; margin-bottom: 10px;">
           Published by: ${props.publisher}
         </div>
 
-        <div style="width: 80%; margin: 8px auto; height: 1px; background: #e2e8f0;"></div>
+        <div style="width: 82%; margin: 12px auto 16px; height: 1px; background: #e2e8f0;"></div>
 
         <!-- Seal & Signature -->
-        <div style="display: flex; align-items: flex-end; justify-content: space-between; padding: 0 16px; margin-top: 2px;">
-          <div style="width: 170px;"></div>
+        <div style="display: flex; align-items: flex-end; justify-content: space-between; padding: 0 24px; margin-top: 10px;">
+          <div style="width: 180px;"></div>
 
-          <div style="display: flex; align-items: center; justify-content: center; width: 220px; flex-shrink: 0;">
+          <div style="display: flex; align-items: center; justify-content: center; width: 240px; flex-shrink: 0;">
             <img 
               src="${STAC_STAMP_URL}" 
               alt="Official STAC Stamp" 
               crossorigin="anonymous"
-              style="height: 82px; width: auto; max-width: 170px; object-fit: contain; display: block; margin: 0 auto;" 
+              style="height: 112px; width: auto; max-width: 230px; object-fit: contain; display: block; margin: 0 auto;" 
             />
           </div>
 
           <div style="text-align: center; min-width: 180px;">
-            <div style="margin-bottom: -4px; height: 42px; display: flex; align-items: center; justify-content: center;">
+            <div style="margin-bottom: -2px; height: 50px; display: flex; align-items: center; justify-content: center;">
               <img 
                 src="${STAC_SIGNATURE_URL}" 
                 alt="Signature" 
                 crossorigin="anonymous"
-                style="height: 38px; width: auto; max-width: 150px; object-fit: contain; display: block; margin: 0 auto;" 
+                style="height: 46px; width: auto; max-width: 165px; object-fit: contain; display: block; margin: 0 auto;" 
               />
             </div>
-            <div style="width: 150px; height: 1px; background: #94a3b8; margin: 4px auto 3px;"></div>
-            <div style="font-size: 11px; color: #94a3b8; font-family: Arial, sans-serif; font-style: italic;">
+            <div style="width: 160px; height: 1px; background: #94a3b8; margin: 6px auto 4px;"></div>
+            <div style="font-size: 11.5px; color: #94a3b8; font-family: Arial, sans-serif; font-style: italic;">
               Head of Corporate Services
             </div>
-            <div style="font-style: normal; font-weight: 700; color: #1e3a5f; font-size: 12px; margin-top: 2px; font-family: Arial, sans-serif;">
+            <div style="font-style: normal; font-weight: 700; color: #1e3a5f; font-size: 13px; margin-top: 3px; font-family: Arial, sans-serif;">
               Musa Ibn Said
             </div>
           </div>
@@ -436,61 +436,61 @@ const Certificate: React.FC<CertificateProps> = ({
               <div dangerouslySetInnerHTML={{ __html: CORNER_BR }} />
 
               {/* Body Content */}
-              <div className="px-6 md:px-14 pt-3 md:pt-5 pb-16 md:pb-20 relative z-20 flex flex-col items-center">
+              <div className="px-6 md:px-14 pt-3 md:pt-6 pb-12 md:pb-16 relative z-20 flex flex-col items-center">
                 {/* Logo */}
-                <div className="flex justify-center mb-1">
+                <div className="flex justify-center mb-1 md:mb-1.5">
                   <img 
                     src={STAC_LOGO_URL} 
                     alt="STAC Academy Logo" 
                     crossOrigin="anonymous"
-                    className="h-10 md:h-14 w-auto object-contain" 
+                    className="h-10 md:h-16 w-auto object-contain" 
                   />
                 </div>
 
                 {/* Academy Title */}
-                <div className="text-center tracking-[0.32em] text-[11px] md:text-[14px] font-sans font-bold text-[#2d6a4f] uppercase mb-1">
+                <div className="text-center tracking-[0.34em] text-[11px] md:text-[15px] font-sans font-bold text-[#2d6a4f] uppercase mb-1 md:mb-2">
                   S T A C &nbsp; M A R I N E
                 </div>
 
                 {/* Divider Line */}
-                <div className="flex items-center gap-2 my-1 w-2/3 max-w-[400px]">
-                  <div className="flex-1 h-[1px] bg-[#1e3a5f]" />
-                  <div className="w-1.5 h-1.5 bg-[#1e3a5f] rounded-full" />
-                  <div className="flex-1 h-[1px] bg-[#1e3a5f]" />
+                <div className="flex items-center gap-2 my-1 md:my-2 w-2/3 max-w-[440px]">
+                  <div className="flex-1 h-[1px] md:h-[1.5px] bg-[#1e3a5f]" />
+                  <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-[#1e3a5f] rounded-full" />
+                  <div className="flex-1 h-[1px] md:h-[1.5px] bg-[#1e3a5f]" />
                 </div>
 
                 {/* Title */}
-                <div className="text-center text-[18px] md:text-[28px] font-normal text-slate-900 mb-0.5 font-serif">
+                <div className="text-center text-[18px] md:text-[30px] font-normal text-slate-900 mb-0.5 md:mb-1 font-serif">
                   Certificate of Completion
                 </div>
-                <div className="text-center text-[11px] md:text-[13px] text-slate-500 italic mb-1.5 font-serif">
+                <div className="text-center text-[11px] md:text-[14px] text-slate-500 italic mb-1 md:mb-2 font-serif">
                   This is to certify that
                 </div>
 
                 {/* Name */}
-                <div className="text-center text-[22px] md:text-[34px] font-bold text-slate-900 font-serif leading-tight mb-1">
+                <div className="text-center text-[22px] md:text-[38px] font-bold text-slate-900 font-serif leading-tight mb-1 md:mb-1.5">
                   {participantName}
                 </div>
-                <div className="w-1/2 h-[2px] bg-gradient-to-r from-transparent via-[#2d6a4f] to-transparent mb-1.5" />
+                <div className="w-1/2 md:w-3/5 h-[2px] bg-gradient-to-r from-transparent via-[#2d6a4f] to-transparent mb-1.5 md:mb-2.5" />
 
                 {/* Completion line */}
-                <div className="text-center text-[11px] md:text-[13px] text-slate-700 italic mb-0.5 font-serif">
+                <div className="text-center text-[11px] md:text-[14px] text-slate-700 italic mb-0.5 md:mb-1 font-serif">
                   has successfully completed the course
                 </div>
 
                 {/* Course name */}
-                <div className="text-center text-[14px] md:text-[19px] font-bold text-slate-900 font-serif mb-0.5">
+                <div className="text-center text-[14px] md:text-[21px] font-bold text-slate-900 font-serif mb-0.5 md:mb-1">
                   {courseName}
                 </div>
-                <div className="text-center text-[10px] md:text-[12px] font-bold text-slate-600 font-sans">
+                <div className="text-center text-[10px] md:text-[13px] font-bold text-slate-600 font-sans mb-1 md:mb-2">
                   Published by: {publisher}
                 </div>
 
-                <div className="w-4/5 h-[1px] bg-slate-200 my-1 md:my-2" />
+                <div className="w-4/5 md:w-5/6 h-[1px] bg-slate-200 my-1 md:my-2.5" />
 
                 {/* Seal & Signature Row */}
-                <div className="w-full flex items-end justify-between px-2 md:px-6 mt-1">
-                  <div className="w-20 md:w-36" />
+                <div className="w-full flex items-end justify-between px-2 md:px-8 mt-1 md:mt-2">
+                  <div className="w-16 md:w-36" />
 
                   {/* Stamp */}
                   <div className="flex justify-center items-center">
@@ -498,25 +498,25 @@ const Certificate: React.FC<CertificateProps> = ({
                       src={STAC_STAMP_URL} 
                       alt="Official STAC Stamp" 
                       crossOrigin="anonymous"
-                      className="h-14 md:h-20 w-auto object-contain" 
+                      className="h-16 md:h-28 w-auto object-contain" 
                     />
                   </div>
 
                   {/* Signature */}
-                  <div className="text-center min-w-[120px] md:min-w-[160px]">
-                    <div className="flex justify-center -mb-1 h-7 md:h-10 items-center">
+                  <div className="text-center min-w-[120px] md:min-w-[170px]">
+                    <div className="flex justify-center -mb-1 h-8 md:h-12 items-center">
                       <img 
                         src={STAC_SIGNATURE_URL} 
                         alt="Signature of Musa Ibn Said" 
                         crossOrigin="anonymous"
-                        className="h-6 md:h-9 w-auto object-contain" 
+                        className="h-7 md:h-11 w-auto object-contain" 
                       />
                     </div>
-                    <div className="w-24 md:w-36 h-[1px] bg-slate-400 mx-auto my-1" />
-                    <div className="text-[8px] md:text-[10px] text-slate-400 font-sans italic">
+                    <div className="w-24 md:w-40 h-[1px] bg-slate-400 mx-auto my-1" />
+                    <div className="text-[8px] md:text-[11px] text-slate-400 font-sans italic">
                       Head of Corporate Services
                     </div>
-                    <div className="text-[9px] md:text-[11px] font-bold text-[#1e3a5f] font-sans">
+                    <div className="text-[9px] md:text-[12px] font-bold text-[#1e3a5f] font-sans">
                       Musa Ibn Said
                     </div>
                   </div>
