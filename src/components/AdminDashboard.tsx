@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getAllAttempts, getAllUsers, updateUserRole, getAllFeedbacks } from '../services/quizService';
 import { PASSING_GRADE } from '../constants';
-import { Users, FileText, Download, CheckCircle, XCircle, Search, Calendar, User, Shield, ShieldCheck, Mail, Phone, Eye, X, Loader2, MessageSquare } from 'lucide-react';
+import { Users, FileText, Download, CheckCircle, XCircle, Search, Calendar, User, Shield, ShieldCheck, Mail, Phone, Eye, X, Loader2, MessageSquare, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { UserProfile, FeedbackData } from '../types';
 import Certificate from './Certificate';
