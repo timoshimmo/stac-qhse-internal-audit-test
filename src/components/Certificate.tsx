@@ -13,22 +13,7 @@ export interface CertificateProps {
 }
 
 export const STAC_LOGO_URL = "https://ohpkfpvyiz0fif6h.public.blob.vercel-storage.com/staclogo.jpg";
-
-const STAC_SEAL_SVG = `
-<svg width="220" height="110" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto;">
-  <circle cx="200" cy="100" r="88" stroke="#1e3a5f" stroke-width="6" fill="#f8fafc" />
-  <circle cx="200" cy="100" r="76" stroke="#2d6a4f" stroke-width="2" stroke-dasharray="6 4" fill="none" />
-  <circle cx="200" cy="100" r="64" fill="#002D5C" />
-  <text x="200" y="32" text-anchor="middle" fill="#002D5C" font-size="18" font-weight="900" letter-spacing="2" font-family="Arial, sans-serif">
-    ★ STAC MARINE OFFSHORE ★
-  </text>
-  <path d="M200 60 L200 130 M182 85 L218 85 M168 115 Q200 148 232 115" stroke="#ffffff" stroke-width="6" stroke-linecap="round" fill="none" />
-  <rect x="110" y="146" width="180" height="28" rx="14" fill="#2d6a4f" />
-  <text x="200" y="166" text-anchor="middle" fill="#ffffff" font-size="15" font-weight="900" letter-spacing="3" font-family="Arial, sans-serif">
-    VERIFIED
-  </text>
-</svg>
-`;
+export const STAC_STAMP_URL = "https://ohpkfpvyiz0fif6h.public.blob.vercel-storage.com/Screenshot_14-8-2026_9929_.jpeg";
 
 const SIGNATURE_SVG = `
 <svg width="150" height="42" viewBox="0 0 160 50" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto;">
@@ -170,7 +155,12 @@ export function getCleanCertificateHTML(props: {
           <div style="width: 170px;"></div>
 
           <div style="display: flex; align-items: center; justify-content: center; width: 220px; flex-shrink: 0;">
-            ${STAC_SEAL_SVG}
+            <img 
+              src="${STAC_STAMP_URL}" 
+              alt="Official STAC Stamp" 
+              crossorigin="anonymous"
+              style="height: 82px; width: auto; max-width: 170px; object-fit: contain; display: block; margin: 0 auto;" 
+            />
           </div>
 
           <div style="text-align: center; min-width: 180px;">
@@ -503,7 +493,14 @@ const Certificate: React.FC<CertificateProps> = ({
                   <div className="w-20 md:w-36" />
 
                   {/* Stamp */}
-                  <div className="flex justify-center items-center" dangerouslySetInnerHTML={{ __html: STAC_SEAL_SVG }} />
+                  <div className="flex justify-center items-center">
+                    <img 
+                      src={STAC_STAMP_URL} 
+                      alt="Official STAC Stamp" 
+                      crossOrigin="anonymous"
+                      className="h-14 md:h-20 w-auto object-contain" 
+                    />
+                  </div>
 
                   {/* Signature */}
                   <div className="text-center min-w-[120px] md:min-w-[160px]">
@@ -625,6 +622,7 @@ const Certificate: React.FC<CertificateProps> = ({
 };
 
 export default Certificate;
+
 
 
 
