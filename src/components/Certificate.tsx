@@ -43,7 +43,7 @@ const Certificate: React.FC<CertificateProps> = ({
     }
   };
 
-  const certificateImage = "https://ohpkfpvyiz0fif6h.public.blob.vercel-storage.com/cybersecurity_certificate.png";
+  const certificateImage = "https://ohpkfpvyiz0fif6h.public.blob.vercel-storage.com/img_internal_audit_certificate.png";
 
   return (
     <div className={variant === 'full' ? "flex flex-col items-center" : "inline-block"}>
