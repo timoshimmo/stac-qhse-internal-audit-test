@@ -1,5 +1,5 @@
 {
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "https://stac-cybersecurity-quiz-backend.vercel.app/api/$1" }
+    { "source": "/api/(.*)", "destination": "https://stac-qhse-internal-audit-be.vercel.app/api/$1" }
   ]
 }
