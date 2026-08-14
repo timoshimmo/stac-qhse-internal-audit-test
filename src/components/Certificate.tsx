@@ -14,12 +14,7 @@ export interface CertificateProps {
 
 export const STAC_LOGO_URL = "https://ohpkfpvyiz0fif6h.public.blob.vercel-storage.com/staclogo.jpg";
 export const STAC_STAMP_URL = "https://ohpkfpvyiz0fif6h.public.blob.vercel-storage.com/Screenshot_14-8-2026_9929_.jpeg";
-
-const SIGNATURE_SVG = `
-<svg width="150" height="42" viewBox="0 0 160 50" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto;">
-  <path d="M12 36 C35 15, 48 8, 65 24 C82 40, 95 18, 115 12 C132 7, 142 22, 152 38 M45 28 C58 12, 85 4, 102 26 M75 32 L135 18" stroke="#002D5C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-</svg>
-`;
+export const STAC_SIGNATURE_URL = "https://ohpkfpvyiz0fif6h.public.blob.vercel-storage.com/signature-final.png";
 
 const CORNER_TL = `
 <svg style="position:absolute;top:16px;left:16px;width:52px;height:52px;z-index:2;pointer-events:none;" viewBox="0 0 48 48" fill="none">
@@ -164,8 +159,13 @@ export function getCleanCertificateHTML(props: {
           </div>
 
           <div style="text-align: center; min-width: 180px;">
-            <div style="margin-bottom: -6px;">
-              ${SIGNATURE_SVG}
+            <div style="margin-bottom: -4px; height: 42px; display: flex; align-items: center; justify-content: center;">
+              <img 
+                src="${STAC_SIGNATURE_URL}" 
+                alt="Signature" 
+                crossorigin="anonymous"
+                style="height: 38px; width: auto; max-width: 150px; object-fit: contain; display: block; margin: 0 auto;" 
+              />
             </div>
             <div style="width: 150px; height: 1px; background: #94a3b8; margin: 4px auto 3px;"></div>
             <div style="font-size: 11px; color: #94a3b8; font-family: Arial, sans-serif; font-style: italic;">
@@ -504,7 +504,14 @@ const Certificate: React.FC<CertificateProps> = ({
 
                   {/* Signature */}
                   <div className="text-center min-w-[120px] md:min-w-[160px]">
-                    <div className="flex justify-center -mb-2" dangerouslySetInnerHTML={{ __html: SIGNATURE_SVG }} />
+                    <div className="flex justify-center -mb-1 h-7 md:h-10 items-center">
+                      <img 
+                        src={STAC_SIGNATURE_URL} 
+                        alt="Signature of Musa Ibn Said" 
+                        crossOrigin="anonymous"
+                        className="h-6 md:h-9 w-auto object-contain" 
+                      />
+                    </div>
                     <div className="w-24 md:w-36 h-[1px] bg-slate-400 mx-auto my-1" />
                     <div className="text-[8px] md:text-[10px] text-slate-400 font-sans italic">
                       Head of Corporate Services
@@ -622,6 +629,7 @@ const Certificate: React.FC<CertificateProps> = ({
 };
 
 export default Certificate;
+
 
 
 
