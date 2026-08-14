@@ -257,19 +257,19 @@ export default function AdminDashboard() {
               >
                 <button 
                   onClick={() => setFilter('all')}
-                  className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer ${filter === 'all' ? 'bg-slate-800 text-white' : 'bg-slate-100 text-slate-500'}`}
+                  className={`px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl text-[11px] sm:text-xs font-black uppercase tracking-wider transition-all whitespace-nowrap cursor-pointer ${filter === 'all' ? 'bg-slate-800 text-white shadow-sm' : 'bg-slate-100 text-slate-600 hover:bg-slate-200/70'}`}
                 >
                   All ({attempts.length})
                 </button>
                 <button 
                   onClick={() => setFilter('passed')}
-                  className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer ${filter === 'passed' ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-50' : 'bg-slate-100 text-slate-500'}`}
+                  className={`px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl text-[11px] sm:text-xs font-black uppercase tracking-wider transition-all whitespace-nowrap cursor-pointer ${filter === 'passed' ? 'bg-emerald-600 text-white shadow-md shadow-emerald-100' : 'bg-slate-100 text-slate-600 hover:bg-slate-200/70'}`}
                 >
                   Passed ({attempts.filter(a => a.percentage >= PASSING_GRADE).length})
                 </button>
                 <button 
                   onClick={() => setFilter('failed')}
-                  className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer ${filter === 'failed' ? 'bg-rose-500 text-white shadow-lg shadow-rose-50' : 'bg-slate-100 text-slate-500'}`}
+                  className={`px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl text-[11px] sm:text-xs font-black uppercase tracking-wider transition-all whitespace-nowrap cursor-pointer ${filter === 'failed' ? 'bg-rose-500 text-white shadow-md shadow-rose-100' : 'bg-slate-100 text-slate-600 hover:bg-slate-200/70'}`}
                 >
                   Failed ({attempts.filter(a => a.percentage < PASSING_GRADE).length})
                 </button>
